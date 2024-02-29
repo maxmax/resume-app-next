@@ -1,9 +1,16 @@
-import { getUser, User } from '@/lib/resume';
+import { Metadata } from 'next';
 import moment from 'moment';
+import { getUser, User } from '@/lib/resume';
 import Image from '@/ui/components/media/image';
+import { Suspense } from 'react';
+import { ResumeTableSkeleton } from '@/ui/components/skeletons';
 import UserLanguage from '@/ui/components/resume/user-language';
 import ResumeTable from '@/ui/components/resume/resume-table';
 import ResumePagination from '@/ui/components/resume/resume-pagination';
+
+export const metadata: Metadata = {
+  title: 'Resume',
+};
 
 export default async function ResumeDetail({ params, searchParams }: { 
   params: { slug: string },
@@ -55,12 +62,14 @@ export default async function ResumeDetail({ params, searchParams }: {
             <div className="w-2/3 border-b-2 border-gray-300 mb-4"></div>
           </div>
           <UserLanguage username={params.slug} />
-          <ResumeTable 
-            username={params.slug}
-            query={query}
-            currentPage={currentPage}
-            currentPerPage={currentPerPage}
-          />
+          <Suspense key={query + currentPage} fallback={<ResumeTableSkeleton />}>
+            <ResumeTable 
+              username={params.slug}
+              query={query}
+              currentPage={currentPage}
+              currentPerPage={currentPerPage}
+            />
+          </Suspense>
           <div className="mt-5 flex w-full justify-center">
             <ResumePagination totalPages={totalPages} />
           </div>

@@ -1,4 +1,6 @@
-import { getUserLanguage, Repository, LanguageUsage } from '@/lib/resume';
+import { getUserLanguage, Repository } from '@/lib/resume';
+import PieChart from '@/ui/components/charts/pie-chart';
+import { Suspense } from 'react';
 
 export default async function UserLanguage({
   username
@@ -22,7 +24,10 @@ export default async function UserLanguage({
   return (
     <div className="language-usage text-center mt-4 mb-4">
       <h2 className="text-xl font-bold mb-8">Languages Usage</h2>
-      <div className="language-usage-chips flex justify-center flex-wrap">
+      <Suspense>
+        <PieChart data={languageCountsPercent} />
+      </Suspense>
+      <div className="language-usage-chips flex justify-center flex-wrap pt-6">
         {languageCountsPercent.map(({ label, value }) => (
           <div key={label} className="my-1 mx-1 inline-flex items-center bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 whitespace-normal w-auto">
             {`${label}: ${value}%`}
