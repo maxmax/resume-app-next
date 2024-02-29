@@ -2,6 +2,7 @@ import { getUser, User } from '@/lib/resume';
 import moment from 'moment';
 import Image from '@/ui/components/media/image';
 import ResumeTable from '@/ui/components/resume/resume-table';
+import ResumePagination from '@/ui/components/resume/resume-pagination';
 
 export default async function ResumeDetail({ params, searchParams }: { 
   params: { slug: string },
@@ -20,6 +21,7 @@ export default async function ResumeDetail({ params, searchParams }: {
 
   const memberSince = moment(user.created_at).format('DD-MMM-YYYY');
   const lastUpdated = moment(user.updated_at).format('DD-MMM-YYYY');
+  const totalPages = Math.ceil(user.public_repos / currentPerPage);
 
   return (
     <div className="bg-white">
@@ -57,6 +59,9 @@ export default async function ResumeDetail({ params, searchParams }: {
             currentPage={currentPage}
             currentPerPage={currentPerPage}
           />
+          <div className="mt-5 flex w-full justify-center">
+            <ResumePagination totalPages={totalPages} />
+          </div>
         </div>
       </div>
     </div>
