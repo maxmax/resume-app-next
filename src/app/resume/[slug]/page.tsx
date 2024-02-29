@@ -1,6 +1,7 @@
 import { getUser, User } from '@/lib/resume';
 import moment from 'moment';
 import Image from '@/ui/components/media/image';
+import UserLanguage from '@/ui/components/resume/user-language';
 import ResumeTable from '@/ui/components/resume/resume-table';
 import ResumePagination from '@/ui/components/resume/resume-pagination';
 
@@ -53,6 +54,7 @@ export default async function ResumeDetail({ params, searchParams }: {
           <div className="flex justify-center items-center">
             <div className="w-2/3 border-b-2 border-gray-300 mb-4"></div>
           </div>
+          <UserLanguage username={params.slug} />
           <ResumeTable 
             username={params.slug}
             query={query}

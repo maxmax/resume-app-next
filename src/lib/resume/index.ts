@@ -1,5 +1,6 @@
 import { getUser } from './get-user';
-import { getUserRepositories } from './get-repositories'
+import { getUserLanguage } from './get-language';
+import { getUserRepositories } from './get-repositories';
 
 import { 
 	User, 
@@ -9,6 +10,7 @@ import {
 
 export {
   getUser,
+  getUserLanguage,
   getUserRepositories
 }
 
